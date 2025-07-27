@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <title>Unlock My Private World 💋</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;700&display=swap');
+
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: #e6dbff;
+      background: transparent;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background video styles */
+    #background-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -4; /* behind everything */
+      pointer-events: none; /* so it doesn’t block clicks */
+      filter: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-radial-gradient(circle, 
+        rgba(255,255,255,0.02) 0, 
+        rgba(255,255,255,0.01) 2px, 
+        transparent 3px, transparent 8px);
+      z-index: -3;
+      animation: swirl 50s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes swirl {
+      0% {background-position: 0 0;}
+      100% {background-position: 250px 250px;}
+    }
+
+    .background-blur {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 40px;
+      filter: brightness(0.55) saturate(1.2);
+      opacity: 0.12;
+      z-index: -2;
+      animation: floatUpDown 20s ease-in-out infinite;
+    }
+    .background-blur img {
+      width: 260px;
+      height: auto;
+      border-radius: 28px;
+      object-fit: cover;
+      filter: blur(24px) grayscale(30%) contrast(85%) brightness(80%);
+      pointer-events: none;
+      user-select: none;
+      animation: slowRotate 80s linear infinite;
+      box-shadow: 0 0 15px #9f82b8cc;
+    }
+    .background-blur img:nth-child(2) {
+      animation-delay: 27s;
+    }
+    .background-blur img:nth-child(3) {
+      animation-delay: 54s;
+    }
+
+    @keyframes floatUpDown {
+      0%, 100% { transform: translate(-50%, -48%) }
+      50% { transform: translate(-50%, -52%) }
+    }
+    @keyframes slowRotate {
+      0% { transform: rotate(0deg) }
+      100% { transform: rotate(360deg) }
+    }
+
+    /* Background overlay with translucent purple only - no background image */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: transparent
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Ensure main sections layer above video and overlay */
+    .exclusive,
+    .gallery,
+    .payment,
+    .trust-section,
+    .refund-note,
+    .testimonials,
+    footer,
+    header {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Slimmer header */
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: linear-gradient(45deg, #45198b, #321e6b);
+      box-shadow: 0 0 12px #664f9f99;
+      border-radius: 0 0 40px 40px;
+      user-select: none;
+    }
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      margin: 0;
+      color: #f3e9ff;
+      text-shadow: 0 0 10px #bb99ffcc;
+      animation: pulseGlow 6s ease-in-out infinite alternate;
+    }
+    header p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #c4a9e3cc;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 6px #a07dd8aa;
+    }
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 6px #a07dd8bb; }
+      100% { text-shadow: 0 0 12px #d2b8ffcc; }
+    }
+
+    .exclusive {
+      text-align: center;
+      padding: 50px 40px;
+      max-width: 720px;
+      margin: 40px auto 40px;
+      background: rgb(77, 28, 138);
+      border-radius: 36px;
+      box-shadow: 0 0 26px #a793d2bb;
+      backdrop-filter: saturate(190%) blur(13px);
+      color: #e3d8ffcc;
+      font-size: 19px;
+      line-height: 1.75;
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .exclusive h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      color: #f0dbff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 14px #d1b9ffdd;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 28px;
+      padding: 48px 20px 72px;
+      max-width: 960px;
+      margin: auto;
+      perspective: 1000px;
+    }
+    .gallery img {
+      width: 260px;
+      border-radius: 28px;
+      box-shadow: 0 9px 30px rgba(162, 140, 200, 1);
+      cursor: pointer;
+      filter: drop-shadow(0 0 12px #b09fe0cc) blur(4px);
+      transition: 
+        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+        box-shadow 0.4s ease, 
+        filter 0.4s ease;
+      user-select: none;
+      transform-style: preserve-3d;
+    }
+
+    .payment {
+      text-align: center;
+      padding: 55px 20px 20px;
+    }
+    .payment h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 42px;
+      color: #d7b8ff;
+      margin-bottom: 18px;
+      text-shadow: 0 0 14px #ad96ffcc;
+    }
+    .payment p {
+      font-size: 20px;
+      margin-bottom: 28px;
+      color: #e0d1ffcc;
+      font-weight: 700;
+    }
+
+    .button-container {
+      border: none;
+      border-radius: 48px;
+      display: inline-flex;
+      padding: 16px 56px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      box-shadow: 0 0 25px #e74c3c99;
+      align-items: center;
+      gap: 16px;
+      transition: 
+        box-shadow 0.4s ease,
+        transform 0.15s ease;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      color: white;
+      user-select: none;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      outline-offset: 4px;
+    }
+    .button-container:hover, .button-container:focus {
+      box-shadow: 0 0 45px #e74c3ccc, 0 0 45px #c0392bcc;
+      transform: scale(1.08);
+      outline: none;
+    }
+    .logo-container {
+      width: 40px;
+      height: 40px;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 0 6px #c1a7ff99);
+    }
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      color: #f5ecff;
+      font-family: Arial, sans-serif;
+      line-height: 1;
+    }
+    .text-container div:first-child {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+    .text-container div:last-child {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #d6caffcc;
+    }
+    .seconday-logo-container {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Trust badges and notes */
+    .trust-section {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      background: rgb(67, 37, 143);
+      border-radius: 30px;
+      padding: 14px 26px;
+      font-weight: 600;
+      color: #dfd1ffcc;
+      box-shadow: 0 0 16px #7b6fc7cc;
+      gap: 12px;
+      font-size: 15px;
+      user-select: none;
+      transition: background 0.3s ease;
+      cursor: default;
+    }
+    .trust-badge:hover {
+      background: rgba(138, 112, 206, 1);
+    }
+    .trust-badge svg {
+      width: 26px;
+      height: 26px;
+      fill: #d9cfffcc;
+      flex-shrink: 0;
+    }
+    .refund-note {
+      max-width: 720px;
+      margin: 0 auto 40px;
+      font-size: 15px;
+      font-style: italic;
+      color: #d1c3f4cc;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      color: #e5dbffcc;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-size: 18px;
+      user-select: none;
+    }
+    .testimonials blockquote {
+      background: rgb(78, 46, 159);
+      padding: 26px 34px;
+      border-radius: 30px;
+      margin: 20px 0;
+      box-shadow: 0 0 28px #8c7ee699;
+      position: relative;
+    }
+    .testimonials blockquote:before {
+      content: "“";
+      font-size: 56px;
+      position: absolute;
+      top: 8px;
+      left: 20px;
+      color: #c2b5ffcc;
+      font-family: serif;
+      user-select: none;
+    }
+    .testimonials cite {
+      display: block;
+      margin-top: 14px;
+      font-style: normal;
+      font-weight: 700;
+      color: #e4d4ffcc;
+      user-select: none;
+      text-align: right;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #c9bfffcc;
+      padding: 18px 10px;
+      background-color: #0a001f;
+      box-shadow: inset 0 2px 8px rgba(91, 41, 156, 0.5);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      user-select: none;
+      border-top: 1px solid #4a3675cc;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: #c1b1ff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #e3d4ff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .gallery img {
+        width: 90vw;
+      }
+      .background-blur img {
+        width: 180px;
+      }
+      header h1 {
+        font-size: 28px;
+      }
+      header p {
+        font-size: 16px;
+      }
+      .exclusive {
+        font-size: 16px;
+        padding: 40px 25px;
+      }
+      .payment h2 {
+        font-size: 32px;
+      }
+      .payment p {
+        font-size: 18px;
+      }
+      .trust-section {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .trust-badge {
+        justify-content: center;
+      }
+      .testimonials blockquote {
+        padding: 18px 26px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background video -->
+  <video id="background-video" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Overlay with translucent purple -->
+  <div class="overlay"></div>
+
+  <header>
+    <h1>Unlock My Private World 💋</h1>
+    <p>Exclusive. Seductive. Yours Alone.</p>
+  </header>
+
+  <section class="exclusive" aria-label="Exclusive content description">
+    <h2>🔥 Premium & Personal Content</h2>
+    <p>
+      Indulge in my most intimate moments — crafted with passion and shared only with those who deserve it.<br />
+      Once you pay, you get direct access privately via DM or email.
+    </p>
+  </section>
+
+  <section class="gallery" aria-label="Gallery of exclusive blurred photos">
+    <img src="Photo1.jpg" alt="Exclusive Photo 1" />
+    <img src="Photo2.jpg" alt="Exclusive Photo 2" />
+    <img src="Photo3.jpg" alt="Exclusive Photo 3" />
+    <img src="Photo4.jpg" alt="Exclusive Photo 4" />
+    <img src="Photo5.jpg" alt="Exclusive Photo 5" />
+    <img src="Photo6.jpg" alt="Exclusive Photo 6" />
+  </section>
+
+  <section class="payment" aria-label="Payment section to unlock content">
+    <h2>💖 Ready to Unlock?</h2>
+    <p>Click the button below to make your payment and claim your private access.</p>
+
+    <form>
+      <a href="https://payments.cashfree.com/forms/videosdweds" target="_parent" class="button-container" role="button" tabindex="0" aria-label="Pay Now button powered by Cashfree">
+        <img src="https://cashfreelogo.cashfree.com/cashfreepayments/logosvgs/Group_4355.svg" alt="Cashfree logo" class="logo-container" />
+        <div class="text-container">
+          <div>Pay Now</div>
+          <div>
+            <span>Powered By Cashfree</span>
+            <img src="https://cashfreelogo.cashfree.com/cashfreepayments/logosvgs/Group_4355.svg" alt="Cashfree small logo" class="seconday-logo-container" />
+          </div>
+        </div>
+      </a>
+    </form>
+  </section>
+
+  <section class="trust-section" aria-label="Trust badges and guarantees">
+    <div class="trust-badge" title="Secure Payment">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5 3.3 9.7 9 11 5.7-1.3 9-6 9-11V5l-9-4zM9 10l-3 3 1.4 1.4 1.6-1.6 4.6 4.6 1.4-1.4-6-6z"/></svg>
+      Secure Payment
+    </div>
+    <div class="trust-badge" title="Privacy Guaranteed">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L5 6v6c0 5 3 9 7 9s7-4 7-9V6l-7-4zm-1 10H7v-2h4v2zm4-4H7V6h8v2z"/></svg>
+      Privacy Guaranteed
+    </div>
+    <div class="trust-badge" title="Refund Policy">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v8l6 3-6 3v8l10-5-10-5v-6l-10 5 10 5z"/></svg>
+      100% Refund if Not Satisfied
+    </div>
+  </section>
+
+  <section class="refund-note" aria-label="Refund policy note">
+    <p>* Refund is applicable only if the product is defective or not as described.</p>
+  </section>
+
+  <section class="testimonials" aria-label="Testimonials from happy customers">
+    <div class="testimonial-slider" style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 24px; padding: 0 20px;">
+      <blockquote style="min-width: 90%; scroll-snap-align: center;">
+        "Bhai maza hi aa gaya! Bilkul alag experience tha – worth it totally!"
+        <cite>- Rohan Mehta</cite>
+      </blockquote>
+      <blockquote style="min-width: 90%; scroll-snap-align: center;">
+        "Main soch raha tha scam hoga, but Nakul bhai real nikle. Safe aur premium feel."
+        <cite>- Aarav Sharma</cite>
+      </blockquote>
+      <blockquote style="min-width: 90%; scroll-snap-align: center;">
+        "Jo content mila wo kisi aur jaisa nahi tha. Personal feel aayi seriously."
+        <cite>- Kunal Verma</cite>
+      </blockquote>
+      <blockquote style="min-width: 90%; scroll-snap-align: center;">
+        "Payment smooth tha aur content next level. Full paisa vasool!"
+        <cite>- Aditya Rao</cite>
+      </blockquote>
+      <blockquote style="min-width: 90%; scroll-snap-align: center;">
+        "Insta pe follow karta tha kaafi time se, yeh toh totally private aur exclusive hai 🔥"
+        <cite>- Nikhil Jain</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Unlock My Private World. All rights reserved.
+  </footer>
+<script>
+  const slider = document.querySelector('.testimonial-slider');
+  let scrollIndex = 0;
+
+  function autoScrollTestimonials() {
+    const testimonials = slider.children;
+    const itemWidth = testimonials[0].offsetWidth + 24; // 24px = gap between items
+    scrollIndex = (scrollIndex + 1) % testimonials.length;
+    slider.scrollTo({
+      left: scrollIndex * itemWidth,
+      behavior: 'smooth'
+    });
+  }
+
+  setInterval(autoScrollTestimonials, 3000); // Scroll every 3 seconds
+</script>
+
+
+</body>
+</html>
